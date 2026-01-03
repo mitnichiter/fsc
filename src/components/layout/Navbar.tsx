@@ -12,7 +12,8 @@ const navLinks = [
     { name: "Home", href: "/" },
     { name: "Shikara Experience", href: "/shikara" },
     { name: "Destinations", href: "/destinations" },
-    { name: "Booking", href: "/booking" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Drone View", href: "/drone-view" },
     { name: "Contact", href: "/contact" },
 ];
 
@@ -74,9 +75,11 @@ export function Navbar() {
                             )}
                         </Link>
                     ))}
-                    <Button variant="default" className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90">
-                        Book Now
-                    </Button>
+                    <Link href="/booking">
+                        <Button variant="default" className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90">
+                            Book Now
+                        </Button>
+                    </Link>
                 </nav>
 
                 {/* Mobile Toggle */}
@@ -113,9 +116,11 @@ export function Navbar() {
                                     {link.name}
                                 </Link>
                             ))}
-                            <Button className="w-full mt-4 bg-primary text-primary-foreground">
-                                Book Your Cruise
-                            </Button>
+                            <Link href="/booking" onClick={() => setIsOpen(false)}>
+                                <Button className="w-full mt-4 bg-primary text-primary-foreground">
+                                    Book Your Cruise
+                                </Button>
+                            </Link>
                         </div>
                     </motion.div>
                 )}

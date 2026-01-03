@@ -99,12 +99,8 @@ export function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+                <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center items-center gap-4 text-sm text-muted-foreground">
                     <p>© {currentYear} Fantastic Boat Cruise. All rights reserved.</p>
-                    <div className="flex gap-6">
-                        <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
-                    </div>
                 </div>
             </div>
         </footer>
