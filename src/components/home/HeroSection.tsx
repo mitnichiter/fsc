@@ -1,21 +1,48 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 export function HeroSection() {
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+    // Fallback: Force show video after 2.5s in case onLoad doesn't fire
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsVideoLoaded(true);
+        }, 2500);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
-        <section className="relative h-[90vh] w-full overflow-hidden flex items-center justify-center">
+        <section className="relative h-[90vh] w-full overflow-hidden flex items-center justify-center bg-black">
+            {/* Loader Overlay */}
+            <AnimatePresence>
+                {!isVideoLoaded && (
+                    <motion.div
+                        initial={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="absolute inset-0 z-20 flex items-center justify-center bg-black"
+                    >
+                        <LumaSpin />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Background Video (Vimeo) */}
-            <div className="absolute inset-0 z-0 pointer-events-none">
+            <div className={`absolute inset-0 z-0 pointer-events-none transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}>
                 <iframe
                     src="https://player.vimeo.com/video/1151150717?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;background=1&amp;autoplay=1&amp;loop=1&amp;byline=0&amp;title=0"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                     className="absolute top-1/2 left-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
                     title="file"
+                    onLoad={() => setIsVideoLoaded(true)}
                 ></iframe>
                 {/* Overlay - Gradient to ensure text readability and theme consistency */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background" />
